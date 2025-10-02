@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary-color: #00A9E7;
+    --secondary-color: #0D2F4B;
+    --background-light: #F7F9FB;
+    --background-dark: #081016;
+    --text-light: #1E293B;
+    --text-dark: #E2E8F0;
+}
+
+.dark {
+    --primary-color: #00A9E7;
+    --secondary-color: #E2E8F0;
+    --background-light: #081016;
+    --background-dark: #F7F9FB;
+    --text-light: #E2E8F0;
+    --text-dark: #1E293B;
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.font-display {
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.glow-effect {
+    box-shadow: 0 0 15px 5px rgba(0, 169, 231, 0.3), 0 0 30px 10px rgba(0, 169, 231, 0.2);
+}
+
+.glow-effect-sm {
+    box-shadow: 0 0 8px 2px rgba(0, 169, 231, 0.2), 0 0 12px 4px rgba(0, 169, 231, 0.15);
+}
