@@ -1,5 +1,11 @@
 ---
+export const prerender = false
+import { getUser } from "./api/user";
 
+const user = await getUser(Astro.request)
+const be_url = import.meta.env.BE_URL
+
+console.log("User:", user);
 ---
 
 <html lang="en">
@@ -12,5 +18,12 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<p>
+      		<a href={
+				user ? be_url + "/logout" : be_url + "/login"
+			}>
+				{user ? 'Sign out' : 'Sign in'}
+			</a>
+    	</p>
 	</body>
 </html>
