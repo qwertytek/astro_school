@@ -1,0 +1,81 @@
+{
+    "en": {
+        "navigation": {
+            "about": "About Us",
+            "courses": "Courses",
+            "contact": "Contact"
+        },
+        "cta": "Join Now",
+        "title": {
+            "0": "The Future is",
+            "1": "Digital",
+            "2": ". Get Ready!"
+        },
+        "subtitle": "Empowering the Next Generation with Coding and Math Skills",
+        "alt_cta": {
+            "a": "Explore Courses",
+            "b": "More Info"
+        },
+        "section": {
+            "pillars": {
+                "title": "Our Teaching Pillars",
+                "description":"We offer a comprehensive education in programming and mathematics, designed for teenagers and young adults.",
+                "cards": {
+                    "coding": {
+                        "title": "Programming",
+                        "description": "From the fundamentals of logic to the development of complex projects. Learn to build the future, line by line."
+                    },
+                    "math": {
+                        "title": "Mathematics",
+                        "description": "Master essential mathematical concepts, strengthen analytical thinking, and prepare for academic and professional challenges."
+                    }
+                }
+            },
+            "bottom_cta": {
+                "title": "Ready to start?",
+                "description": "Contact us for more information about our courses and enrollment process. Your future starts here.",
+                "button": "Contact"
+            }
+        }
+    },
+    "pt": {
+        "navigation": {
+            "about": "Sobre Nós",
+            "courses": "Cursos",
+            "contact": "Contato"
+        },
+        "cta": "Inscreva-se",
+        "title": {
+            "0": "O Futuro é",
+            "1": " Digital",
+            "2": ". Prepara-te!"
+        },
+        "subtitle": "Capacitamos jovens e adultos com as competências essenciais de programação e matemática para um futuro de sucesso.",
+        "secondary_cta": "Explore Cursos",
+        "alt_cta": {
+            "a": "Explorar cursos",
+            "b": "Saber mais"
+        },
+        "section": {
+            "pillars": {
+                "title": "Os Nossos Pilares de Ensino",
+                "description":"Oferecemos uma formação completa em programação e matemática, desenhada para adolescentes e jovens adultos.",
+                "cards": {
+                    "coding": {
+                        "title": "Programação",
+                        "description": "Desde os fundamentos de lógica até ao desenvolvimento de projetos complexos. Aprende a construir o futuro, linha por linha."
+                    },
+                    "math": {
+                        "title": "Matemática",
+                        "description": "Domina os conceitos matemáticos essenciais, fortalece o pensamento analítico e prepara-te para os desafios académicos e profissionais."
+                    }
+                }
+            },
+            "bottom_cta": {
+                "title": "Pronto para Começar?",
+                "description": "Contacta-nos para mais informações sobre os nossos cursos e processo de inscrição. O teu futuro começa aqui.",
+                "button": "Contactar"
+            }
+        }
+    }
+}
