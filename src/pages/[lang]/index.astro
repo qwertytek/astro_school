@@ -1,46 +1,13 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Hero from '../../components/Hero.astro';
-import Pillars from '../../components/Pillars.astro';
-import CTA from '../../components/CTA.astro';
-import Footer from '../../components/Footer.astro';
-export const prerender = false
-import { getUser } from "../api/user";
+import Main from '@pages/index.astro';
 
-const user = await getUser(Astro.request)
-const be_url = import.meta.env.BE_URL
-
+export function getStaticPaths() {
+    return [
+        { params: { lang: "pt" }},
+        { params: { lang: "en" }},
+    ];
+}
 ---
 
-<BaseLayout title="Next Generation Academy">
-	<div class="flex flex-col min-h-screen">
-		<Header />
-		<main class="flex-grow">
-			<Hero />
-			<Pillars />
-			<CTA />
-		</main>
-		<Footer />
-	</div>
-</BaseLayout>
+<Main />
 
-<!-- <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-		<p>
-      		<a href={
-				user ? be_url + "/logout" : be_url + "/login"
-			}>
-				{user ? 'Sign out' : 'Sign in'}
-			</a>
-    	</p>
-	</body>
-</html> -->

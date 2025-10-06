@@ -1,6 +1,15 @@
 ---
-import Home from './[lang]/index.astro'
 export const prerender = false
+
+import { sanityClient } from "sanity:client";
+import Homepage from '@components/Homepage.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+
+const headerContent = await sanityClient.fetch(
+    `*[_type == "landingPage"][0]`
+);
 ---
 
-<Home lang="pt" />
+<BaseLayout title="Next Generation Academy">
+    <Homepage content={headerContent} />
+</BaseLayout>
