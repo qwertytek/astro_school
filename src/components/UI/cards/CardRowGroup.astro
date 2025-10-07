@@ -1,0 +1,17 @@
+---
+import Card from '@components/UI/cards/Card.astro';
+
+const { cardItems } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+    {
+        cardItems.map(({ title, description}: { title: string; description: string }) => (
+            <Card
+                title={title}
+                description={description}
+            />
+        ))
+    }
+</div>
+

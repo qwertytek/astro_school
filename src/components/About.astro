@@ -1,8 +1,52 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+import CardRowGroup from '@components/UI/cards/CardRowGroup.astro';
+import Card from './UI/cards/Card.astro';
 const { content } = Astro.props;
-const lang = Astro.params?.lang || 'pt';
+const lang = Astro.params?.lang || 'pt' as 'pt' | 'en';
+
+interface OurValuesType {
+    cardTitle: {
+        en: string;
+        pt: string;
+    };
+    cardDescription: {
+        en: string;
+        pt: string;
+    }
+}
+const {
+    heroAboutPage,
+    aboutUsSection,
+    ourValuesSection,
+    aboutPageCTA
+} = content?.about
+
+const heroTitle = heroAboutPage?.title
+const heroDescription = heroAboutPage?.description
+
+const aboutUsSectionTitle = aboutUsSection?.title
+const aboutUsSectionDescription = aboutUsSection?.description
+
+const ourValuesTitle = ourValuesSection?.title
+const ourValuesItems = ourValuesSection?.valuesCard
+
+const aboutCTATitle = aboutPageCTA?.title
+const aboutCTADescription = aboutPageCTA?.description
+const aboutCTAButtonText = aboutPageCTA?.buttonText
+
+const convertValuesItems = (arr: OurValuesType[]) => (
+    arr.map(({ cardDescription, cardTitle }) => (
+        { 
+            title: cardTitle?.[lang as 'pt' | 'en'],
+            description: cardDescription?.[lang as 'pt' | 'en'],
+        }
+    ))
+)
+
+console.log('inside here', content?.about)
+
 ---
 
 <div class="flex flex-col min-h-screen">
@@ -10,8 +54,13 @@ const lang = Astro.params?.lang || 'pt';
     <main class="flex-grow py-16 md:py-24">
         <div class="container mx-auto px-4 md:px-12 lg:px-20">
             <div class="text-center max-w-4xl mx-auto">
-                <h1 class="text-4xl md:text-6xl font-bold mb-4">A nossa <span class="text-[var(--primary-color)]">Missão</span></h1>
-                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12">Capacitar a próxima geração de inovadores com as competências essenciais em programação e matemática, preparando-os para um futuro de sucesso num mundo cada vez mais digital.</p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                    {heroTitle[0]?.[lang as 'pt' | 'en']}
+                    <span class="text-[var(--primary-color)]">
+                        {heroTitle[1]?.[lang as 'pt' | 'en']}
+                    </span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12">{heroDescription?.[lang as 'pt' | 'en']}</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
@@ -19,23 +68,27 @@ const lang = Astro.params?.lang || 'pt';
                     <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-PTvn7-oGOrJO899hAACN1RDXrR7_2pvabmhz6y11QrvwUBw9qWhzb-5mn4VCYHS1sxMWI5qPXxDZa25EHhHQrTvI_uyxHiGoEM84ieJLX6L05Gr0qelfl3V2HvGlugGjjwMrQzAl-fZJTnezGiExTL9IEwnN_i3owDanEcKe7WizjJ-60Yc6eyVfuuv8t1QcXn856SccK936DgVtarnbyCywJzt7rtRDbf_o62zeXGACkwAGSxbnm-GPEZa9hK6wzp-3vAE7KRk" alt="Equipa colaborando num projeto" class="rounded-lg shadow-xl w-full h-auto" />
                 </div>
                 <div>
-                    <h2 class="text-3xl font-bold mb-4">Quem Somos</h2>
-                    <p class="text-slate-600 dark:text-slate-400 mb-4">A Next Generation Academy nasceu da paixão por tecnologia e educação. Acreditamos que todos, independentemente da idade ou background, devem ter a oportunidade de aprender as linguagens do futuro. Somos uma equipa de educadores, programadores e entusiastas da matemática dedicados a criar experiências de aprendizagem envolventes e eficazes.</p>
-                    <p class="text-slate-600 dark:text-slate-400">O nosso currículo é cuidadosamente desenhado para ser prático, relevante e, acima de tudo, inspirador. Queremos acender a centelha da curiosidade e dar aos nossos alunos as ferramentas para construir, inovar e resolver problemas complexos.</p>
+                    <h2 class="text-3xl font-bold mb-4">{aboutUsSectionTitle?.[lang as 'pt' | 'en']}</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">{aboutUsSectionDescription?.[lang as 'pt' | 'en']}</p>
                 </div>
             </div>
 
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold">Os Nossos Valores</h2>
+                <h2 class="text-3xl md:text-4xl font-bold">{ourValuesTitle?.[lang as 'pt' | 'en']}</h2>
             </div>
+<!-- 
+            <CardRowGroup cardItems={firstRowValues} />
+            <div class="mt-10">
+                <CardRowGroup cardItems={secondRowValues} />
+            </div> -->
+
+            <CardRowGroup cardItems={convertValuesItems(ourValuesItems)} />
+
+
 
             <div class="grid md:grid-cols-3 gap-8 text-center">
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
-                    <span class="material-symbols-outlined text-[var(--primary-color)] text-5xl mb-4">lightbulb</span>
-                    <h3 class="text-xl font-bold mb-2">Inovação</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Estamos sempre a explorar novas tecnologias e métodos de ensino para oferecer a melhor experiência.</p>
-                </div>
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
+
+                <!-- <div class="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md border border-slate-200 dark:border-slate-700">
                     <span class="material-symbols-outlined text-[var(--primary-color)] text-5xl mb-4">groups</span>
                     <h3 class="text-xl font-bold mb-2">Comunidade</h3>
                     <p class="text-slate-600 dark:text-slate-400">Fomentamos um ambiente colaborativo e de apoio onde todos se sentem bem-vindos para aprender e crescer.</p>
@@ -44,13 +97,13 @@ const lang = Astro.params?.lang || 'pt';
                     <span class="material-symbols-outlined text-[var(--primary-color)] text-5xl mb-4">school</span>
                     <h3 class="text-xl font-bold mb-2">Excelência</h3>
                     <p class="text-slate-600 dark:text-slate-400">Comprometemo-nos com os mais altos padrões de qualidade no nosso ensino e no nosso suporte aos alunos.</p>
-                </div>
+                </div> -->
             </div>
 
             <div class="mt-24 bg-[color-mix(in_oklab,var(--primary-color)_15%,transparent)] p-12 rounded-lg text-center">
-                <h2 class="text-3xl font-bold mb-4">Junta-te à Próxima Geração!</h2>
-                <p class="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-8">Estás pronto para dar o próximo passo na tua jornada de aprendizagem e moldar o futuro? Explora os nossos cursos e começa a tua aventura hoje mesmo.</p>
-                <a href="/waitlist" class="inline-block bg-[var(--primary-color)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">Explorar Cursos</a>
+                <h2 class="text-3xl font-bold mb-4">{aboutCTATitle?.[lang as 'pt' | 'en']}</h2>
+                <p class="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-8">{aboutCTADescription?.[lang as 'pt' | 'en']}</p>
+                <a href="/waitlist" class="inline-block bg-[var(--primary-color)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">{aboutCTAButtonText?.[lang as 'pt' | 'en']}</a>
             </div>
         </div>
     </main>
