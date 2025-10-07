@@ -6,13 +6,12 @@ import CTA from '@components/homepage/CTA.astro';
 import Footer from '@components/Footer.astro';
 
 const { content } = Astro.props;
-
 ---
 
 <div class="flex flex-col min-h-screen">
 	<Header content={content?.header}/>
 	<main class="flex-grow">
-		<Hero content={content?.hero}/>
+		<Hero content={content?.heroLandingPage}/>
 		<Pillars content={content?.pillars}/>
 		<CTA />
 	</main>
