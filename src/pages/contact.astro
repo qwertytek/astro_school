@@ -1,0 +1,87 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Header from "@components/Header.astro";
+import Footer from "@components/Footer.astro";
+import { sanityClient } from "sanity:client";
+
+const content = await sanityClient.fetch(`*[_type == "landingPage"][0]`);
+export const prerender = false
+---
+
+<BaseLayout title="Contacto - Next Generation Academy">
+    <div class="flex flex-col min-h-screen">
+        <Header content={content?.header} />
+        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl sm:text-5xl font-bold">Entre em <span class="text-[var(--primary-color)]">Contacto</span></h1>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">Estamos aqui para ajudar. Envie-nos uma mensagem!</p>
+            </div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60">
+                    <h2 class="text-2xl font-bold mb-6">Envie uma mensagem</h2>
+                    <form action="#" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Nome</label>
+                            <input id="name" name="name" type="text" autocomplete="name" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+                            <input id="email" name="email" type="email" autocomplete="email" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Mensagem</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--primary-color)] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
+                                Enviar Mensagem
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">location_on</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Nosso Escritório</h3>
+                            <p class="text-slate-600 dark:text-slate-400">Rua da Tecnologia, 123, Lisboa, Portugal</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">mail</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Email</h3>
+                            <p class="text-slate-600 dark:text-slate-400">info@nextgenacademy.pt</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">call</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Telefone</h3>
+                            <p class="text-slate-600 dark:text-slate-400">(+351) 210 123 456</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <Footer />
+    </div>
+</BaseLayout>
+
+

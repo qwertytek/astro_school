@@ -1,12 +1,7 @@
 ---
 import Main from '@pages/index.astro';
-
-export function getStaticPaths() {
-    return [
-        { params: { lang: "pt" }},
-        { params: { lang: "en" }},
-    ];
-}
+import { getStaticPaths } from '@utils/getStaticLangPaths';
+export { getStaticPaths };
 ---
 
 <Main />

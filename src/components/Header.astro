@@ -1,6 +1,8 @@
 ---
 const lang = Astro.params.lang || 'pt';
 const { content: headerContent } = Astro.props;
+
+const basePathRedirectRoute = Astro.params.lang ? `/${Astro.params.lang}` : '';
 ---
 <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-lg">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -12,9 +14,9 @@ const { content: headerContent } = Astro.props;
                 <h2 class="font-display text-2xl font-bold text-slate-900 dark:text-white"> Next Generation Academy</h2>
             </div>
             <nav class="hidden md:flex items-center gap-10">
-                <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors" href="#">{headerContent?.navigation?.[0]?.[lang as 'pt' | 'en']}</a>
-                <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors" href="#">{headerContent?.navigation?.[1]?.[lang as 'pt' | 'en']}</a>
-                <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors" href="#">{headerContent?.navigation?.[2]?.[lang as 'pt' | 'en']}</a>
+                <a href={`${basePathRedirectRoute}/about`} class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors">{headerContent?.navigation?.[0]?.[lang as 'pt' | 'en']}</a>
+                <a href={`${basePathRedirectRoute}/waitlist`} class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors">{headerContent?.navigation?.[1]?.[lang as 'pt' | 'en']}</a>
+                <a href={`${basePathRedirectRoute}/contact`} class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-[var(--primary-color)] transition-colors">{headerContent?.navigation?.[2]?.[lang as 'pt' | 'en']}</a>
             </nav>
             <a class="hidden md:inline-flex items-center justify-center rounded-lg h-11 px-6 bg-[var(--primary-color)] text-white text-sm font-bold shadow-lg hover:bg-opacity-90 transition-all transform hover:-translate-y-0.5 glow-effect-sm" href="/waitlist">
                 {headerContent?.cta?.[lang as 'pt' | 'en']}
