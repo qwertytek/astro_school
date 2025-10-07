@@ -2,7 +2,6 @@
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import CardRowGroup from '@components/UI/cards/CardRowGroup.astro';
-import Card from './UI/cards/Card.astro';
 const { content } = Astro.props;
 const lang = Astro.params?.lang || 'pt' as 'pt' | 'en';
 
@@ -44,9 +43,6 @@ const convertValuesItems = (arr: OurValuesType[]) => (
         }
     ))
 )
-
-console.log('inside here', content?.about)
-
 ---
 
 <div class="flex flex-col min-h-screen">

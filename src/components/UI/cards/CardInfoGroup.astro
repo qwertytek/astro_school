@@ -1,0 +1,17 @@
+---
+import CardInfo from '@components/UI/cards/CardInfo.astro';
+
+const { cardItems } = Astro.props;
+---
+
+<div class="space-y-8">
+    {
+        cardItems.map(({ title, description}: { title: string; description: string }) => (
+            <CardInfo
+                title={title}
+                description={description}
+            />
+        ))
+    }
+</div>
+

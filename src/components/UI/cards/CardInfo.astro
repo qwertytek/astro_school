@@ -1,0 +1,14 @@
+---
+const { title, description } = Astro.props;
+---
+<div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
+    <div class="flex-shrink-0">
+        <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
+            <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">mail</span>
+        </div>
+    </div>
+    <div>
+        <h3 class="text-lg font-semibold">{title}</h3>
+        <p class="text-slate-600 dark:text-slate-400">{description}</p>
+    </div>
+</div>
