@@ -3,11 +3,11 @@ export const prerender = false
 import BaseLayout from "@layouts/BaseLayout.astro";
 import Header from "@components/Header.astro";
 import Footer from "@components/Footer.astro";
-import CardInfo from "@components/UI/cards/CardInfo.astro";
 import CardInfoGroup from "@components/UI/cards/CardInfoGroup.astro";
 import { sanityClient } from "sanity:client";
+import { getLang } from "@utils/getLang";
 
-const lang = Astro.params?.lang || 'pt' as 'pt' | 'en';
+const lang = getLang(Astro.params)
 
 const content = await sanityClient.fetch(`*[_type == "landingPage"][0]`);
 

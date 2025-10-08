@@ -1,9 +1,10 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
-import CardRowGroup from '@components/UI/cards/CardRowGroup.astro';
+import CardGroup from '@components/UI/cards/CardGroup.astro';
+import { getLang } from '@utils/getLang';
 const { content } = Astro.props;
-const lang = Astro.params?.lang || 'pt' as 'pt' | 'en';
+const lang = getLang(Astro.params)
 
 interface OurValuesType {
     cardTitle: {
@@ -38,8 +39,8 @@ const aboutCTAButtonText = aboutPageCTA?.buttonText
 const convertValuesItems = (arr: OurValuesType[]) => (
     arr.map(({ cardDescription, cardTitle }) => (
         { 
-            title: cardTitle?.[lang as 'pt' | 'en'],
-            description: cardDescription?.[lang as 'pt' | 'en'],
+            title: cardTitle?.[lang],
+            description: cardDescription?.[lang],
         }
     ))
 )
@@ -56,7 +57,7 @@ const convertValuesItems = (arr: OurValuesType[]) => (
                         {heroTitle[1]?.[lang as 'pt' | 'en']}
                     </span>
                 </h1>
-                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12">{heroDescription?.[lang as 'pt' | 'en']}</p>
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-12">{heroDescription?.[lang]}</p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
@@ -64,13 +65,13 @@ const convertValuesItems = (arr: OurValuesType[]) => (
                     <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-PTvn7-oGOrJO899hAACN1RDXrR7_2pvabmhz6y11QrvwUBw9qWhzb-5mn4VCYHS1sxMWI5qPXxDZa25EHhHQrTvI_uyxHiGoEM84ieJLX6L05Gr0qelfl3V2HvGlugGjjwMrQzAl-fZJTnezGiExTL9IEwnN_i3owDanEcKe7WizjJ-60Yc6eyVfuuv8t1QcXn856SccK936DgVtarnbyCywJzt7rtRDbf_o62zeXGACkwAGSxbnm-GPEZa9hK6wzp-3vAE7KRk" alt="Equipa colaborando num projeto" class="rounded-lg shadow-xl w-full h-auto" />
                 </div>
                 <div>
-                    <h2 class="text-3xl font-bold mb-4">{aboutUsSectionTitle?.[lang as 'pt' | 'en']}</h2>
-                    <p class="text-slate-600 dark:text-slate-400 mb-4">{aboutUsSectionDescription?.[lang as 'pt' | 'en']}</p>
+                    <h2 class="text-3xl font-bold mb-4">{aboutUsSectionTitle?.[lang]}</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-4">{aboutUsSectionDescription?.[lang]}</p>
                 </div>
             </div>
 
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold">{ourValuesTitle?.[lang as 'pt' | 'en']}</h2>
+                <h2 class="text-3xl md:text-4xl font-bold">{ourValuesTitle?.[lang]}</h2>
             </div>
 <!-- 
             <CardRowGroup cardItems={firstRowValues} />
@@ -78,7 +79,10 @@ const convertValuesItems = (arr: OurValuesType[]) => (
                 <CardRowGroup cardItems={secondRowValues} />
             </div> -->
 
-            <CardRowGroup cardItems={convertValuesItems(ourValuesItems)} />
+            <CardGroup
+                className="grid grid-cols-1 md:grid-cols-2 gap-10"
+                cardItems={convertValuesItems(ourValuesItems)}
+            />
 
 
 
@@ -97,9 +101,9 @@ const convertValuesItems = (arr: OurValuesType[]) => (
             </div>
 
             <div class="mt-24 bg-[color-mix(in_oklab,var(--primary-color)_15%,transparent)] p-12 rounded-lg text-center">
-                <h2 class="text-3xl font-bold mb-4">{aboutCTATitle?.[lang as 'pt' | 'en']}</h2>
-                <p class="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-8">{aboutCTADescription?.[lang as 'pt' | 'en']}</p>
-                <a href="/waitlist" class="inline-block bg-[var(--primary-color)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">{aboutCTAButtonText?.[lang as 'pt' | 'en']}</a>
+                <h2 class="text-3xl font-bold mb-4">{aboutCTATitle?.[lang]}</h2>
+                <p class="text-slate-700 dark:text-slate-300 max-w-2xl mx-auto mb-8">{aboutCTADescription?.[lang]}</p>
+                <a href="/waitlist" class="inline-block bg-[var(--primary-color)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition-colors">{aboutCTAButtonText?.[lang]}</a>
             </div>
         </div>
     </main>
