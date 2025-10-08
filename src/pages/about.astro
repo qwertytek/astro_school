@@ -3,13 +3,11 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import AboutSection from '@components/About.astro';
 import { sanityClient } from 'sanity:client';
 
-const contentHeader = await sanityClient.fetch(`*[_type == "landingPage"][0]`);
-const contentAbout = await sanityClient.fetch(`*[_type == "aboutPage"][0]`);
+const contentAbout = await sanityClient.fetch(`*[_type == "aboutPage" && !(_originalId in path("drafts.**"))][0]`);
 ---
 
 <BaseLayout title="Sobre Nós - Next Generation Academy">
     <AboutSection content={{
-        header: contentHeader?.header,
         about: contentAbout,
     }} />
 </BaseLayout>

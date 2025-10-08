@@ -6,7 +6,7 @@ import Homepage from '@components/Homepage.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 
 const headerContent = await sanityClient.fetch(
-    `*[_type == "landingPage"][0]`
+    `*[_type == "landingPage" && !(_originalId in path("drafts.**"))][0]`
 );
 ---
 

@@ -8,13 +8,12 @@ import WaitlistHero from "@components/WaitlistHero.astro";
 import WaitlistBenefits from "@components/WaitlistBenefits.astro";
 import { sanityClient } from "sanity:client";
 
-const content = await sanityClient.fetch(`*[_type == "landingPage"][0]`);
 const contentWaitlist = await sanityClient.fetch(`*[_type == "courses" && !(_originalId in path("drafts.**"))][0]`);
 ---
 
 <BaseLayout title="Code & Math Academy – Waitlist">
     <div class="flex flex-col min-h-screen">
-        <Header content={content?.header} />
+        <Header />
         <main class="flex flex-col items-center flex-grow">
             <div class="w-full max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
                 <WaitlistHero content={contentWaitlist.heroCourses}/>

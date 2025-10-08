@@ -6,49 +6,48 @@ import Footer from "@components/Footer.astro";
 import CardInfoGroup from "@components/UI/cards/CardInfoGroup.astro";
 import { sanityClient } from "sanity:client";
 import { getLang } from "@utils/getLang";
+import type { LangTypeSchemaObject } from "@utils/getLang";
 
 const lang = getLang(Astro.params)
 
-const content = await sanityClient.fetch(`*[_type == "landingPage"][0]`);
-
-const contactContent = await sanityClient.fetch(`*[_type == "contact"][0]`);
+const contactContent = await sanityClient.fetch(`*[_type == "contact" && !(_originalId in path("drafts.**"))][0]`);
 
 const { form, contactInfo,introTitle, introSubtitle } = contactContent || {};
 
-const contactInfoAsItem = contactInfo?.map(({ title, description }: { title: {en: string; pt: string}; description: {en: string; pt: string} }) => ({
-    title: title?.[lang as 'pt' | 'en'],
-    description: description?.[lang as 'pt' | 'en'],
+const contactInfoAsItem = contactInfo?.map(({ title, description }: { title: LangTypeSchemaObject; description: LangTypeSchemaObject }) => ({
+    title: title?.[lang],
+    description: description?.[lang],
 }));
 ---
 
 <BaseLayout title="Contacto - Next Generation Academy">
     <div class="flex flex-col min-h-screen">
-        <Header content={content?.header} />
+        <Header />
         <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div class="text-center mb-12">
-                <h1 class="text-4xl sm:text-5xl font-bold"> {introTitle?.[lang as 'pt' | 'en']} </h1>
-                <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{introSubtitle?.[lang as 'pt' | 'en']}</p>
+                <h1 class="text-4xl sm:text-5xl font-bold"> {introTitle?.[lang]} </h1>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">{introSubtitle?.[lang]}</p>
             </div>
 
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60">
-                    <h2 class="text-2xl font-bold mb-6">{form?.heading?.[lang as 'pt' | 'en']}</h2>
+                    <h2 class="text-2xl font-bold mb-6">{form?.heading?.[lang]}</h2>
                     <form action="#" method="POST" class="space-y-6">
                         <div>
-                            <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.nameLabel?.[lang as 'pt' | 'en']}</label>
+                            <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.nameLabel?.[lang]}</label>
                             <input id="name" name="name" type="text" autocomplete="name" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
                         </div>
                         <div>
-                            <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.emailLabel?.[lang as 'pt' | 'en']}</label>
+                            <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.emailLabel?.[lang]}</label>
                             <input id="email" name="email" type="email" autocomplete="email" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
                         </div>
                         <div>
-                            <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.messageLabel?.[lang as 'pt' | 'en']}</label>
+                            <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.messageLabel?.[lang]}</label>
                             <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm"></textarea>
                         </div>
                         <div>
                             <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--primary-color)] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
-                                {form?.submitLabel?.[lang as 'pt' | 'en']}
+                                {form?.submitLabel?.[lang]}
                             </button>
                         </div>
                     </form>

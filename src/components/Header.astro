@@ -1,7 +1,12 @@
 ---
+import { sanityClient } from "sanity:client";
 import { getLang } from '@utils/getLang';
-const lang = getLang(Astro.params) || 'pt';
-const { content: headerContent } = Astro.props;
+
+const lang = getLang(Astro.params);
+
+const {header: headerContent } = await sanityClient.fetch(
+    `*[_type == "landingPage" && !(_originalId in path("drafts.**"))][0]`
+);
 
 const basePathRedirectRoute = Astro.params.lang ? `/${Astro.params.lang}` : '';
 ---

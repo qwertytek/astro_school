@@ -7,7 +7,6 @@ import CardGroup from "@components/UI/cards/CardGroup.astro";
 const lang = getLang(Astro.params);
 
 const { content } = Astro.props;
-
 const { title, description, benefits } = content || {};
 
 const benefitItems = benefits.map(({ description, title }: { description: LangTypeSchemaObject, title:LangTypeSchemaObject}) => (
