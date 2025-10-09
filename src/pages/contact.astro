@@ -10,7 +10,7 @@ import type { LangTypeSchemaObject } from "@utils/getLang";
 
 const lang = getLang(Astro.params)
 
-const contactContent = await sanityClient.fetch(`*[_type == "contact" && !(_originalId in path("drafts.**"))][0]`);
+const contactContent = await sanityClient.fetch(`*[_type == "contactPage" && !(_originalId in path("drafts.**"))][0]`);
 
 const { form, contactInfo,introTitle, introSubtitle } = contactContent || {};
 
