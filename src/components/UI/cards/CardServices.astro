@@ -1,0 +1,17 @@
+---
+const {
+    title,
+    description,
+    icon = "lightbulb"
+} = Astro.props;
+---
+
+<div class="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-slate-200 dark:border-slate-700">
+    <div class="flex items-center justify-center bg-[var(--primary-color)]/20 dark:bg-[var(--primary-color)]/30 h-16 w-16 rounded-full mb-6">
+        <span class="material-symbols-outlined text-[var(--primary-color)] text-3xl">{icon}</span>
+    </div>
+    <h3 class="text-2xl font-bold mb-3 font-display">{title}</h3>
+    <p class="text-slate-600 dark:text-slate-400">
+        {description}
+    </p>
+</div>
