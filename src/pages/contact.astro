@@ -8,6 +8,29 @@ import { sanityClient } from "sanity:client";
 import { getLang } from "@utils/getLang";
 import type { LangTypeSchemaObject } from "@utils/getLang";
 
+if (Astro.request.method === "POST") {
+  try {
+    const data = await Astro.request.formData();
+    const name = data.get("name");
+    const email = data.get("email");
+    const message = data.get("message");
+
+    const submitForm = await sanityClient.create({
+        _type: "formSubmission",
+        name,
+        email,
+        message
+    });
+
+    console.log('submitform',submitForm)
+
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
 const lang = getLang(Astro.params)
 
 const contactContent = await sanityClient.fetch(`*[_type == "contactPage" && !(_originalId in path("drafts.**"))][0]`);
@@ -32,18 +55,19 @@ const contactInfoAsItem = contactInfo?.map(({ title, description }: { title: Lan
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div class="bg-white dark:bg-slate-900 p-8 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60">
                     <h2 class="text-2xl font-bold mb-6">{form?.heading?.[lang]}</h2>
+                    <!-- FORM START -->
                     <form action="#" method="POST" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.nameLabel?.[lang]}</label>
-                            <input id="name" name="name" type="text" autocomplete="name" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
+                            <input id="name" name="name" type="text" autocomplete="name" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" required />
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.emailLabel?.[lang]}</label>
-                            <input id="email" name="email" type="email" autocomplete="email" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" />
+                            <input id="email" name="email" type="email" autocomplete="email" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" required/>
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{form?.messageLabel?.[lang]}</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm"></textarea>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-600 rounded-md shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] sm:text-sm" required></textarea>
                         </div>
                         <div>
                             <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--primary-color)] hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)]">
@@ -51,48 +75,10 @@ const contactInfoAsItem = contactInfo?.map(({ title, description }: { title: Lan
                             </button>
                         </div>
                     </form>
+                    <!-- FORM END -->
                 </div>
 
                 <CardInfoGroup cardItems={contactInfoAsItem} />
-
-                <!-- <div class="space-y-8">
-                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
-                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">location_on</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Nosso Escritório</h3>
-                            <p class="text-slate-600 dark:text-slate-400">Rua da Tecnologia, 123, Lisboa, Portugal</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
-                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">mail</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Email</h3>
-                            <p class="text-slate-600 dark:text-slate-400">info@nextgenacademy.pt</p>
-                        </div>
-                    </div>
-
-                    <div class="bg-white dark:bg-slate-900 p-6 rounded-lg shadow-md ring-1 ring-slate-200/60 dark:ring-slate-700/60 flex items-start gap-4">
-                        <div class="flex-shrink-0">
-                            <div class="bg-[var(--primary-color)]/10 dark:bg-[var(--primary-color)]/20 p-3 rounded-full">
-                                <span class="material-symbols-outlined text-[var(--primary-color)] text-2xl">call</span>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-semibold">Telefone</h3>
-                            <p class="text-slate-600 dark:text-slate-400">(+351) 210 123 456</p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </main>
         <Footer />
     </div>
