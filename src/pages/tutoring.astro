@@ -30,9 +30,6 @@ const lang = getLang(Astro.params);
 const contentTutoring = await sanityClient.fetch(`*[_type == "tutoring" && !(_originalId in path("drafts.**"))][0]`);
 
 const {heroTutoring, tutoringList, contactSection} = contentTutoring;
-console.log('inside here', tutoringList)
-
-
 
 const items = tutoringList.services.map(({ description, title }: { description: LangTypeSchemaObject, title: LangTypeSchemaObject}) => ({
     title: title[lang],
