@@ -13,7 +13,7 @@ const { content } = Astro.props;
 	<main class="flex-grow">
 		<Hero content={content?.heroLandingPage}/>
 		<Pillars content={content?.pillars}/>
-		<CTA />
+		<CTA content={content?.cta}/>
 	</main>
 	<Footer />
 </div>

@@ -1,22 +1,25 @@
 ---
-const lang = Astro.params.lang || 'pt'
+import { getLang, getBasePathRedirectRoute } from "@utils/getLang";
+const lang = getLang(Astro.params)
 const { content } = Astro.props;
+
+const basePathRedirectRoute = getBasePathRedirectRoute(Astro.params);
 ---
 <section class="relative">
     <div class="absolute inset-0 bg-grid-slate-900/[0.04] bg-[bottom_1px_center] dark:bg-grid-slate-400/[0.05] dark:bg-bottom" style="mask-image: linear-gradient(to bottom, transparent, black, black, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black, black, transparent)"></div>
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 flex flex-col items-center justify-center text-center relative z-10">
         <h1 class="font-display text-4xl sm:text-6xl md:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight tracking-tighter">
-            {content?.title?.[0]?.[lang as 'pt' | 'en']} <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-color)] to-[#0D2F4B] dark:from-[var(--primary-color)] dark:to-slate-300">{content?.title?.[1]?.[lang as 'pt' | 'en']}</span> {content?.title?.[2]?.[lang as 'pt' | 'en']}
+            {content?.title?.[0]?.[lang]} <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary-color)] to-[#0D2F4B] dark:from-[var(--primary-color)] dark:to-slate-300">{content?.title?.[1]?.[lang as 'pt' | 'en']}</span> {content?.title?.[2]?.[lang as 'pt' | 'en']}
         </h1>
         <p class="mt-6 max-w-2xl text-lg sm:text-xl text-slate-600 dark:text-slate-400">
-            {content?.subtitle?.[lang as 'pt' | 'en']}
+            {content?.subtitle?.[lang]}
         </p>
         <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
-            <a class="inline-flex items-center justify-center rounded-full h-12 px-8 bg-[var(--primary-color)] text-white text-base font-bold shadow-lg hover:bg-opacity-90 transition-all transform hover:scale-105 glow-effect" href="#">
-                {content?.alt_cta?.[0]?.[lang as 'pt' | 'en']}
+            <a class="inline-flex items-center justify-center rounded-full h-12 px-8 bg-[var(--primary-color)] text-white text-base font-bold shadow-lg hover:bg-opacity-90 transition-all transform hover:scale-105 glow-effect" href={`${basePathRedirectRoute}/waitlist`}>
+                {content?.alt_cta?.[0]?.[lang]}
             </a>
-            <a class="inline-flex items-center justify-center h-12 px-8 text-slate-700 dark:text-slate-300 font-medium hover:text-[var(--primary-color)] dark:hover:text-[var(--primary-color)] transition-colors" href="#">
-                {content?.alt_cta?.[1]?.[lang as 'pt' | 'en']}
+            <a class="inline-flex items-center justify-center h-12 px-8 text-slate-700 dark:text-slate-300 font-medium hover:text-[var(--primary-color)] dark:hover:text-[var(--primary-color)] transition-colors" href={`${basePathRedirectRoute}/about`}>
+                {content?.alt_cta?.[1]?.[lang]}
             </a>
         </div>
     </div>

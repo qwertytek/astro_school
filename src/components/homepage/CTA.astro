@@ -1,16 +1,20 @@
 ---
-import content from '@data/home.json'
-const lang = Astro.params.lang || 'pt'
+import { getLang, getBasePathRedirectRoute } from "@utils/getLang";
+const lang = getLang(Astro.params);
+const basePathRedirectRoute = getBasePathRedirectRoute(Astro.params)
+
+const { content } = Astro.props;
+const { title, description, buttonText, } = content;
 ---
 <section class="py-20 sm:py-28">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div class="max-w-3xl mx-auto">
-            <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">{content?.[lang as 'pt' | 'en']?.section?.bottom_cta?.title}</h2>
+            <h2 class="font-display text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white">{title[lang]}</h2>
             <p class="mt-4 text-lg text-slate-600 dark:text-slate-400">
-                {content?.[lang as 'pt' | 'en']?.section?.bottom_cta?.description}
+                {description[lang]}
             </p>
-            <a class="mt-10 inline-flex items-center justify-center rounded-full h-12 px-8 bg-[var(--primary-color)] text-white text-base font-bold shadow-lg hover:bg-opacity-90 transition-all transform hover:scale-105 glow-effect" href="#">
-                {content?.[lang as 'pt' | 'en']?.section?.bottom_cta?.button}
+            <a class="mt-10 inline-flex items-center justify-center rounded-full h-12 px-8 bg-[var(--primary-color)] text-white text-base font-bold shadow-lg hover:bg-opacity-90 transition-all transform hover:scale-105 glow-effect" href={`${basePathRedirectRoute}/contact`}>
+                {buttonText[lang]}
             </a>
         </div>
     </div>
