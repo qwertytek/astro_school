@@ -3,24 +3,42 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
 import CardServiceGroup from '@components/UI/cards/CardServiceGroup.astro';
+import { sanityClient } from "sanity:client";
+import { getLang } from '@utils/getLang';
+import type { LangTypeSchemaObject } from '@utils/getLang';
 
-const services = [
-    {
-        title: "Programação para Iniciantes",
-        description: "Um curso introdutório ao mundo da programação, cobrindo lógica e as bases de Python.",
-        icon: "code"
-    },
-    {
-        title: "Matemática para Programadores",
-        description: "Reforce os conceitos matemáticos essenciais para a resolução de problemas complexos em programação.",
-        icon: "calculate"
-    },
-    {
-        title: "Desenvolvimento Web Full-Stack",
-        description: "Aprenda a construir aplicações web completas, do frontend ao backend, com tecnologias modernas.",
-        icon: "web"
-    }
-];
+const lang = getLang(Astro.params);
+
+// const services = [
+//     {
+//         title: "Programação para Iniciantes",
+//         description: "Um curso introdutório ao mundo da programação, cobrindo lógica e as bases de Python.",
+//         icon: "code"
+//     },
+//     {
+//         title: "Matemática para Programadores",
+//         description: "Reforce os conceitos matemáticos essenciais para a resolução de problemas complexos em programação.",
+//         icon: "calculate"
+//     },
+//     {
+//         title: "Desenvolvimento Web Full-Stack",
+//         description: "Aprenda a construir aplicações web completas, do frontend ao backend, com tecnologias modernas.",
+//         icon: "web"
+//     }
+// ];
+
+const contentTutoring = await sanityClient.fetch(`*[_type == "tutoring" && !(_originalId in path("drafts.**"))][0]`);
+
+const {heroTutoring, tutoringList, contactSection} = contentTutoring;
+console.log('inside here', tutoringList)
+
+
+
+const items = tutoringList.services.map(({ description, title }: { description: LangTypeSchemaObject, title: LangTypeSchemaObject}) => ({
+    title: title[lang],
+    description: description[lang],
+}))
+
 ---
 
 <BaseLayout title="Serviços e Contacto - Next Generation Academy">
@@ -29,12 +47,12 @@ const services = [
     <main class="container mx-auto px-4 py-8">
         <!-- Services Section -->
         <section id="services" class="mt-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 font-display">Os Nossos Serviços</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-center mb-4 font-display">{heroTutoring.title[lang]}</h1>
             <p class="text-lg text-center text-slate-600 dark:text-slate-400 mb-12 max-w-3xl mx-auto">
-                Oferecemos uma gama de cursos e workshops para capacitar jovens e adultos com as competências do futuro.
+                {heroTutoring.description[lang]}
             </p>
             
-            <CardServiceGroup cardItems={services} />
+            <CardServiceGroup cardItems={items} />
         </section>
 
         <!-- Contact Form -->
@@ -42,9 +60,9 @@ const services = [
             <div class="bg-slate-100 dark:bg-slate-800 rounded-lg p-8 md:p-12 lg:p-16 shadow-lg border border-slate-200 dark:border-slate-700">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <h2 class="text-3xl md:text-4xl font-bold mb-4 font-display">Entre em Contacto</h2>
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 font-display">{contactSection.title[lang]}</h2>
                         <p class="text-slate-600 dark:text-slate-400">
-                            Deixe o seu email e entraremos em contacto consigo.
+                            {contactSection.description[lang]}
                         </p>
                     </div>
                     
@@ -52,7 +70,7 @@ const services = [
                         <form action="/contact/success" class="space-y-6" method="POST">
                     <div>
                         <label class="block text-sm font-medium text-slate-700 dark:text-slate-300" for="email">
-                            Email
+                            {contactSection.emailLabel[lang]}
                         </label>
                         <input 
                             autocomplete="email" 
@@ -69,7 +87,7 @@ const services = [
                             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-[var(--primary-color)] hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-color)] transition-opacity" 
                             type="submit"
                         >
-                            Enviar Mensagem
+                            {contactSection.submitButtonText[lang]}
                         </button>
                     </div>
                         </form>
