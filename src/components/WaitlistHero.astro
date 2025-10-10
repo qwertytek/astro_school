@@ -1,10 +1,12 @@
 ---
-import { getLang } from "@utils/getLang";
+import { getLang, getBasePathRedirectRoute } from "@utils/getLang";
 const { content } = Astro.props;
 
 const lang = getLang(Astro.params);
 
 const { title, description, buttonText } = content || {};
+
+const basePathRedirectRoute = getBasePathRedirectRoute(Astro.params)
 ---
 
 <section class="py-20 sm:py-24 lg:py-32">
@@ -14,7 +16,7 @@ const { title, description, buttonText } = content || {};
         <div class="relative flex h-full min-h-[480px] flex-col items-center justify-center gap-6 text-center text-white p-8">
             <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl">{title?.[lang]}</h1>
             <p class="max-w-2xl text-base text-gray-200 sm:text-lg">{description?.[lang]}</p>
-            <a href="/waitlist" class="mt-4 inline-flex items-center justify-center rounded-lg bg-[var(--primary-color)] px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[color:var(--primary-color)/0.9]">
+            <a href={`${basePathRedirectRoute}/subscribe`} class="mt-4 inline-flex items-center justify-center rounded-lg bg-[var(--primary-color)] px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[color:var(--primary-color)/0.9]">
                 {buttonText?.[lang]}
             </a>
         </div>
