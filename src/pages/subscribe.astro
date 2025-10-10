@@ -1,4 +1,5 @@
 ---
+export const prerender = false
 import BaseLayout from "@layouts/BaseLayout.astro";
 import { sanityClient } from "sanity:client";
 import { getLang } from '@utils/getLang';
@@ -10,6 +11,25 @@ const subscribePageContent = await sanityClient.fetch(
 );
 
 const { description, form, title } = subscribePageContent.newsletterSubscription
+
+if (Astro.request.method === "POST") {
+    try {
+    const data = await Astro.request.formData();
+    const email = data.get("email");
+
+    const submitForm = await sanityClient.create({
+        _type: "formSubscription",
+        email,
+    });
+
+    console.log('submitform',submitForm, email)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+  }
+}
+
 ---
 
 <BaseLayout title="Subscribe - Next Generation Academy">
@@ -34,7 +54,7 @@ const { description, form, title } = subscribePageContent.newsletterSubscription
             </div>
             
             <div class="w-full max-w-md bg-white dark:bg-slate-800 p-8 rounded-lg shadow-lg">
-                <form class="space-y-6">
+                <form method="POST" class="space-y-6">
                     <div>
                         <label class="block mb-2 text-sm font-medium text-slate-700 dark:text-slate-300" for="email">
                             {form.emailLabel[lang]}
@@ -43,11 +63,12 @@ const { description, form, title } = subscribePageContent.newsletterSubscription
                             <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
                                 email
                             </span>
-                            <input 
+                            <input
                                 class="bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white text-sm rounded-lg focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)] block w-full pl-10 p-2.5 transition-colors" 
-                                id="email" 
+                                id="email"
+                                name="email"
                                 placeholder={form.emailPlaceholder[lang]}
-                                required 
+                                required
                                 type="email"
                             />
                         </div>
