@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+export function getStaticPaths() {
+    const languages = ["pt", "en"]
+    const pages = [
+        "/",
+        "about",
+        "subscribe",
+        "termsConditions",
+        "tutoring",
+        "waitlist",
+        "contact",
+        "contact/success"
+    ];
+
+    const paths = languages.flatMap((lang: string) => 
+        pages.map((page: string) => (
+            {params: { lang: lang, slug: page === '/' ? '': page }}
+        ))
+    )
+
+    return paths
+}
+
+
+// Get params from URL
+const { lang, slug } = Astro.params;
+
+const path = `${lang}/${Astro.params?.slug}`
+
+let CurrentPage;
+
+try {
+    CurrentPage = await import(`../${slug}.astro`)
+} catch (e) {
+    throw Astro.redirect(`/${lang}/404`)
+}
+
+---
+
+<BaseLayout title=`${path || 'homepage'}`>
+    <CurrentPage.default />
+</BaseLayout>
