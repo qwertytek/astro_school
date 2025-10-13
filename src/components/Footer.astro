@@ -13,8 +13,8 @@ const { copyrightTitle, privacyPolicyTitle, termsOfServiceTitle  } = content?.fo
         <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
             <p class="text-sm text-slate-500 dark:text-slate-400">{copyrightTitle[lang]}</p>
             <div class="flex items-center justify-center gap-6">
-                <a class="text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--primary-color)] transition-colors" href="#">{privacyPolicyTitle[lang]}</a>
-                <a class="text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--primary-color)] transition-colors" href="#">{termsOfServiceTitle[lang]}</a>
+                <a class="text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--primary-color)] transition-colors" href={`/${lang}/privacyPolicy`}>{privacyPolicyTitle[lang]}</a>
+                <a class="text-sm text-slate-500 dark:text-slate-400 hover:text-[var(--primary-color)] transition-colors" href={`/${lang}/termsOfService`}>{termsOfServiceTitle[lang]}</a>
             </div>
         </div>
     </div>

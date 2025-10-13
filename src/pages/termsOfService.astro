@@ -1,0 +1,14 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import TermsComponent from "@components/Terms.astro";
+import { getLang } from "@utils/getLang";
+
+const lang = getLang(Astro.params);
+---
+
+<BaseLayout title="Terms of service">
+	<TermsComponent
+		redirectRoute={`/${lang}/`}
+    />
+</BaseLayout>
+
