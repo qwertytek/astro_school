@@ -8,8 +8,6 @@ import react from '@astrojs/react';
 
 const { SECRET_SANITY_TOKEN } = loadEnv(process.env.NODE_ENV || 'development', process.cwd(), "");
 
-console.log(SECRET_SANITY_TOKEN);
-
 export default defineConfig({
   adapter: vercel(),
   vite: {

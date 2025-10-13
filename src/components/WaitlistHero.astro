@@ -1,6 +1,6 @@
 ---
 import { getLang, getBasePathRedirectRoute } from "@utils/getLang";
-const { content } = Astro.props;
+const { content, imageUrl } = Astro.props;
 
 const lang = getLang(Astro.params);
 
@@ -11,11 +11,11 @@ const basePathRedirectRoute = getBasePathRedirectRoute(Astro.params)
 
 <section class="py-20 sm:py-24 lg:py-32">
     <div class="relative min-h-[480px] rounded-lg overflow-hidden">
-        <div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARAX7ljYmdNNko1WEHQKgtkgFFBNGjmvHEcqmwjBTj_yYuvOiLTUXDg6afWUc5g0AUPSODvPVSWdzOuYsNUuDsgZdWtcGBC66du2X1S5fSyADY4wQI7hak3Cp9YZukJ7pN-O6e-_rxeShZAX3JegCV6eHtv8_9thn9VYnRwYjF0FceQ8hCBkhLGucOaXqUZNBs1c3L668XpFO2__7BXWxHjV5tYXsR-A7BtQECK46oCVVStIbwjlsu09SWHx7FHiUuTmiNBTNq6RT4");'></div>
-        <div class="absolute inset-0 bg-gray-900/50"></div>
+        <img class="absolute pl-20" src={imageUrl} />
+        <div class="absolute inset-0 bg-gray-900/60"></div>
         <div class="relative flex h-full min-h-[480px] flex-col items-center justify-center gap-6 text-center text-white p-8">
-            <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl">{title?.[lang]}</h1>
-            <p class="max-w-2xl text-base text-gray-200 sm:text-lg">{description?.[lang]}</p>
+            <h1 class="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl mt-5">{title?.[lang]}</h1>
+            <p class="mt-20 pt-20 max-w-2xl text-base text-gray-200 sm:text-lg">{description?.[lang]}</p>
             <a href={`${basePathRedirectRoute}/subscribe`} class="mt-4 inline-flex items-center justify-center rounded-lg bg-[var(--primary-color)] px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[color:var(--primary-color)/0.9]">
                 {buttonText?.[lang]}
             </a>

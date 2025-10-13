@@ -7,8 +7,11 @@ import Footer from "@components/Footer.astro";
 import WaitlistHero from "@components/WaitlistHero.astro";
 import WaitlistBenefits from "@components/WaitlistBenefits.astro";
 import { sanityClient } from "sanity:client";
+import { urlFor } from "@lib/sanityImageUrl";
 
 const contentCourses = await sanityClient.fetch(`*[_type == "courses" && !(_originalId in path("drafts.**"))][0]`);
+
+const imageUrl = urlFor(contentCourses.heroCourses.heroImage, sanityClient)
 ---
 
 <BaseLayout title="Code & Math Academy – Waitlist">
@@ -16,7 +19,10 @@ const contentCourses = await sanityClient.fetch(`*[_type == "courses" && !(_orig
         <Header />
         <main class="flex flex-col items-center flex-grow">
             <div class="w-full max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
-                <WaitlistHero content={contentCourses.heroCourses}/>
+                <img
+                    
+                />
+                <WaitlistHero content={contentCourses.heroCourses} imageUrl={imageUrl.width(1000).url()}/>
                 <WaitlistBenefits content={contentCourses.whyWaitlistSection} />
             </div>
         </main>
