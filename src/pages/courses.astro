@@ -17,14 +17,9 @@ const imageUrl = urlFor(contentCourses.heroCourses.heroImage, sanityClient)
 <BaseLayout title="Code & Math Academy – Waitlist">
     <div class="flex flex-col min-h-screen">
         <Header />
-        <main class="flex flex-col items-center flex-grow">
-            <div class="w-full max-w-6xl flex-1 px-4 sm:px-6 lg:px-8">
-                <img
-                    
-                />
-                <WaitlistHero content={contentCourses.heroCourses} imageUrl={imageUrl.width(1000).url()}/>
-                <WaitlistBenefits content={contentCourses.whyWaitlistSection} />
-            </div>
+        <main class="flex flex-col items-center">
+            <WaitlistHero content={contentCourses.heroCourses} imageUrl={imageUrl.url()}/>
+            <WaitlistBenefits content={contentCourses.whyWaitlistSection} />
         </main>
         <Footer />
     </div>
