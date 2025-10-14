@@ -85,8 +85,10 @@ if (Astro.request.method === "POST") {
                             />
                         </div>
                         <label class="ml-2 text-sm font-medium text-slate-900 dark:text-slate-300" for="terms">
-                            {form.termsLabel[lang]}
-                            <!-- Eu concordo com os <a class="text-[var(--primary-color)] hover:underline" href="#">termos e condições</a> -->
+                            {form.termsOfSubscription[0][lang]}
+                            <a class="text-[var(--primary-color)] hover:underline" href="termsConditions">
+                                {form.termsOfSubscription[1][lang]}
+                            </a>
                         </label>
                     </div>
                     
